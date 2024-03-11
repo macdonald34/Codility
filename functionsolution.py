@@ -30,8 +30,8 @@ def solution(A, D):
     return balance
 
 # Example usage
-A = [100,100,100,-10]
-D = ["2020-12-31","2020-12-22","2020-12-03","2020-12-29"]
-print(solution(A, D))  # Expected output: 230
+A = [100,]
+D = ["2020-01-01","2020-01-01","2020-01-01","2020-01-31"]
+print(solution(A, D))  # Expected output: 
 
        
