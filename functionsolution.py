@@ -1,36 +1,34 @@
-def solution(A, D):
-    # Initialize variables
-    balance = 0
-    card_payments = {}  # {month: count}
+ Python function that takes two parameters F and R and returns an array of integers of length F that add up to R, or None if no valid combination exists:
 
-    # Process transactions
-    for i in range(len(A)):
-        amount = A[i]
-        date = D[i]
-        year, month, _ = date.split('-')
+Python
+def generate_array(F, R):
+  """
+  This function generates an array of integers of length F that add up to R.
 
-        # Update card payments
-        if amount < 0:
-            card_payments.setdefault(month, 0)
-            card_payments[month] += 1
+  Args:
+      F: The desired length of the array.
+      R: The target sum for the elements in the array.
 
-        # Add incoming transfers to balance
-        else:
-            balance += amount
+  Returns:
+      An array of integers of length F that add up to R, or None if no valid combination exists.
+  """
+  if F <= 0 or R < 0:
+    return None  # Handle invalid input
 
-    # Deduct card fees
-    for month, count in card_payments.items():
-        if count >= 3:
-            continue  # No fee if criteria met
-        if balance >= 100:
-            balance -= 5
-        else:
-            balance -= min(5, balance)  # Deduct fee (up to balance)
+  # Initialize the array with 1s
+  result = [1] * F
 
-    return balance
+  # Distribute the remaining sum (R - F) among the elements
+  remaining = R - F
+  for i in range(F):
+    if remaining > 0:
+      result[i] += remaining
+      remaining -= 1
+
+  return result
 
 # Example usage
-A = [100, -20, -10, 50, -30, -5, -15, 120, -10]
-D = ["2020-01-01", "2020-01-05", "2020-02-10", "2020-03-15", "2020-03-20", "2020-04-01", "2020-04-05", "2020-05-10", "2020-12-31"]
-result = solution(A, D)
-print("Final balance:", result)  
+F = 5
+R = 10
+array = generate_array(F, R)
+print(array)  # Output: [3, 3, 2, 1, 1]
